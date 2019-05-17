@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import Table from "./Table";
 import Header from "./Header";
+import Loader from "./Loader";
 // import Form from "./Form";
 
 class App extends Component {
@@ -40,7 +41,12 @@ class App extends Component {
     return (
       <div className="full-container">
         <Header />
-        <Table vehicleData={vehicles} removeVehicle={this.removeVehicle} />
+        {vehicles.length > 0 ? (
+          <Table vehicleData={vehicles} removeVehicle={this.removeVehicle} />
+        ) : (
+          <Loader />
+        )}
+
         {/* <Form handleSubmit={this.handleSubmit} /> */}
       </div>
     );
