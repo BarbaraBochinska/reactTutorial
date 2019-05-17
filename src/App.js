@@ -6,18 +6,21 @@ import Loader from "./Loader";
 
 class App extends Component {
   state = {
-    vehicles: []
+    vehicles: [],
+    next: "https://swapi.co/api/vehicles"
   };
 
   componentDidMount() {
-    const url = "https://swapi.co/api/vehicles";
+    const url = this.state.next;
 
     fetch(url)
       .then(result => result.json())
       .then(result => {
         this.setState({
+          next: result.next,
           vehicles: result.results
         });
+        console.log(this.state);
       });
   }
 
@@ -46,8 +49,7 @@ class App extends Component {
         ) : (
           <Loader />
         )}
-
-        {/* <Form handleSubmit={this.handleSubmit} /> */}
+        <button onClick={() => this.componentDidMount()}>Next</button>
       </div>
     );
   }
