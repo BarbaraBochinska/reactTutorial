@@ -2,12 +2,13 @@ import React, { Component } from "react";
 import Table from "./Table";
 import Header from "./Header";
 import Loader from "./Loader";
+import { Button } from "react-bootstrap";
 
 class App extends Component {
   state = {
     vehicles: [],
     next: "https://swapi.co/api/vehicles",
-    previous: ""
+    previous: null
   };
 
   componentDidMount() {
@@ -57,10 +58,18 @@ class App extends Component {
         ) : (
           <Loader />
         )}
-        <button onClick={() => this.handlePage(this.state.previous)}>
+        <Button
+          disabled={this.state.previous === null}
+          onClick={() => this.handlePage(this.state.previous)}
+        >
           Previous
-        </button>
-        <button onClick={() => this.handlePage(this.state.next)}>Next</button>
+        </Button>
+        <Button
+          disabled={this.state.next === null}
+          onClick={() => this.handlePage(this.state.next)}
+        >
+          Next
+        </Button>
       </div>
     );
   }
