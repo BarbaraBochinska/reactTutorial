@@ -2,26 +2,37 @@ import React, { Component } from "react";
 import Table from "./Table";
 import Header from "./Header";
 import Loader from "./Loader";
-// import Form from "./Form";
 
 class App extends Component {
   state = {
     vehicles: [],
-    next: "https://swapi.co/api/vehicles"
+    next: "https://swapi.co/api/vehicles",
+    previous: ""
   };
 
   componentDidMount() {
     const url = this.state.next;
+    this.handleUrl(url);
+  }
 
+  handleUrl(url) {
     fetch(url)
       .then(result => result.json())
       .then(result => {
         this.setState({
           next: result.next,
-          vehicles: result.results
+          vehicles: result.results,
+          previous: result.previous
         });
         console.log(this.state);
       });
+  }
+
+  handlePage(nextOrPreviousPage) {
+    const url = nextOrPreviousPage;
+    if (url !== null) {
+      this.handleUrl(url);
+    }
   }
 
   removeVehicle = index => {
@@ -34,10 +45,6 @@ class App extends Component {
     });
   };
 
-  // handleSubmit = vehicle => {
-  //   this.setState({ vehicles: [...this.state.vehicles, vehicle] });
-  // };
-
   render() {
     const { vehicles } = this.state;
 
@@ -49,7 +56,10 @@ class App extends Component {
         ) : (
           <Loader />
         )}
-        <button onClick={() => this.componentDidMount()}>Next</button>
+        <button onClick={() => this.handlePage(this.state.previous)}>
+          Previous
+        </button>
+        <button onClick={() => this.handlePage(this.state.next)}>Next</button>
       </div>
     );
   }

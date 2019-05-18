@@ -22,6 +22,7 @@ const TableHeader = () => {
         <th>Cost in Credits</th>
         <th>Crew</th>
         <th>Passengers</th>
+        <th>Delete</th>
       </tr>
     </thead>
   );
