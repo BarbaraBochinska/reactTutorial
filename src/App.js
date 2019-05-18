@@ -29,6 +29,7 @@ class App extends Component {
   }
 
   handlePage(nextOrPreviousPage) {
+    this.setState({ vehicles: [] });
     const url = nextOrPreviousPage;
     if (url !== null) {
       this.handleUrl(url);
